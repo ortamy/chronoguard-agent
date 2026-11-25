@@ -1,0 +1,47 @@
+test_agent_runs_tools_through_guard (__main__.AgentLoopTests.test_agent_runs_tools_through_guard) ... ok
+test_connector_tool_is_read_only (__main__.AgentLoopTests.test_connector_tool_is_read_only) ... ok
+test_step_limit_is_enforced (__main__.AgentLoopTests.test_step_limit_is_enforced) ... ok
+test_unknown_tool_is_blocked (__main__.AgentLoopTests.test_unknown_tool_is_blocked) ... ok
+test_export_import_roundtrip (__main__.AuditTests.test_export_import_roundtrip) ... ok
+test_import_rejects_bad_bundle (__main__.AuditTests.test_import_rejects_bad_bundle) ... ok
+test_connector_call_records_journal (__main__.ConnectorTests.test_connector_call_records_journal) ... ok
+test_missing_connector_raises_with_setup_url (__main__.ConnectorTests.test_missing_connector_raises_with_setup_url) ... ok
+test_path_validation (__main__.ConnectorTests.test_path_validation) ... ok
+test_issue_created_then_deduped (__main__.GitHubTests.test_issue_created_then_deduped) ... ok
+test_readonly_fallback (__main__.GitHubTests.test_readonly_fallback) ... ok
+test_approval_race_single_execution (__main__.HardeningTests.test_approval_race_single_execution) ... Exception in thread Thread-12 (approve):
+Traceback (most recent call last):
+  File "/.sprite/languages/python/pyenv/versions/3.13.17/lib/python3.13/threading.py", line 1044, in _bootstrap_inner
+    self.run()
+    ~~~~~~~~^^
+  File "/.sprite/languages/python/pyenv/versions/3.13.17/lib/python3.13/threading.py", line 995, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sprite/agent/tests/test_v2.py", line 344, in approve
+    res = cg.approve_event(event_id, actor="racer", approve=True)
+  File "/home/sprite/agent/server.py", line 710, in approve_event
+    result = execute_tool(target.get("tool"), args)
+  File "/home/sprite/agent/server.py", line 606, in execute_tool
+    shutil.rmtree(p)
+    ~~~~~~~~~~~~~^^^
+  File "/.sprite/languages/python/pyenv/versions/3.13.17/lib/python3.13/shutil.py", line 763, in rmtree
+    _rmtree_safe_fd(stack, onexc)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/.sprite/languages/python/pyenv/versions/3.13.17/lib/python3.13/shutil.py", line 704, in _rmtree_safe_fd
+    onexc(func, path, err)
+    ~~~~~^^^^^^^^^^^^^^^^^
+  File "/.sprite/languages/python/pyenv/versions/3.13.17/lib/python3.13/shutil.py", line 670, in _rmtree_safe_fd
+    topfd = os.open(name, os.O_RDONLY | os.O_NONBLOCK, dir_fd=dirfd)
+FileNotFoundError: [Errno 2] No such file or directory: '/home/sprite/workspace/v2_test/race'
+ok
+test_model_text_cannot_change_policy (__main__.HardeningTests.test_model_text_cannot_change_policy)
+A tool result containing policy-editing instructions must not mutate policy. ... ok
+test_path_traversal_blocked (__main__.HardeningTests.test_path_traversal_blocked) ... ok
+test_policy_change_during_pending_blocks_approval (__main__.HardeningTests.test_policy_change_during_pending_blocks_approval) ... ok
+test_relative_traversal_blocked (__main__.HardeningTests.test_relative_traversal_blocked) ... ok
+test_symlink_escape_blocked (__main__.HardeningTests.test_symlink_escape_blocked) ... ok
+System.Management.Automation.RemoteException
+----------------------------------------------------------------------
+Ran 17 tests in 0.535s
+System.Management.Automation.RemoteException
+OK
