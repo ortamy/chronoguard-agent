@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ChronoGuard Agent</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root {
+    --bg: #0a0a0b;
+    --card: #111113;
+    --border: #222226;
+    --text: #d9d9dd;
+    --muted: #85858d;
+    --accent: #ffffff;
+    --success: #4ade80;
+    --danger: #fb7185;
+    --info: #60a5fa;
+    --warning: #fbbf24;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  .bg-vernal {
+    background:
+      radial-gradient(1200px 600px at 15% -10%, rgba(255,255,255,0.02), transparent 40%),
+      var(--bg);
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .card:hover { border-color: #33333a; }
+  .status-dot {
+    width: 8px; height: 8px; border-radius: 50%; display: inline-block;
+    box-shadow: 0 0 0 0 rgba(0,0,0,0);
+  }
+  .status-running { background: var(--success); animation: blink-running 2s infinite; }
+  .status-alert { background: var(--danger); animation: blink-alert 1.2s infinite; }
+  .status-restored { background: var(--info); animation: blink-restored 3s infinite; }
+  @keyframes blink-running { 0%,100% { box-shadow: 0 0 0 0 rgba(74,222,128,0.25); } 50% { box-shadow: 0 0 0 6px rgba(74,222,128,0); } }
+  @keyframes blink-alert { 0%,100% { box-shadow: 0 0 0 0 rgba(251,113,133,0.45); } 50% { box-shadow: 0 0 0 8px rgba(251,113,133,0); } }
+  @keyframes blink-restored { 0%,100% { box-shadow: 0 0 0 0 rgba(96,165,250,0.25); } 50% { box-shadow: 0 0 0 6px rgba(96,165,250,0); } }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: 0.5rem; border-radius: 8px; font-weight: 500; font-size: 0.875rem;
+    transition: all 0.15s ease; cursor: pointer; border: 1px solid transparent;
+  }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+  .btn-primary { background: #18181b; color: #ffffff; border-color: #33333a; box-shadow: 0 1px 2px 0 rgba(0,0,0,0.4); }
+  .btn-primary:hover:not(:disabled) { background: #27272a; border-color: #4b4b55; transform: translateY(-1px); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); }
+  .btn-danger { background: #27202a; color: #fecaca; border-color: #4a2a35; box-shadow: 0 0 10px rgba(127,42,66,0.2); }
+  .btn-danger:hover:not(:disabled) { background: #3f1f2d; border-color: #7f1f32; box-shadow: 0 0 16px rgba(127,42,66,0.35); transform: translateY(-1px); }
+  .btn-success { background: #1d2a20; color: #bbf7d0; border-color: #2d4a3a; box-shadow: 0 0 10px rgba(45,74,58,0.2); }
+  .btn-success:hover:not(:disabled) { background: #243d2a; border-color: #406a50; box-shadow: 0 0 16px rgba(45,74,58,0.35); transform: translateY(-1px); }
+  .btn-info { background: #1e293b; color: #bfdbfe; border-color: #334155; box-shadow: 0 0 10px rgba(51,65,85,0.2); }
+  .btn-info:hover:not(:disabled) { background: #334155; border-color: #475569; box-shadow: 0 0 16px rgba(51,65,85,0.35); transform: translateY(-1px); }
+  .btn-ghost { background: transparent; color: var(--muted); border-color: transparent; }
+  .btn-ghost:hover:not(:disabled) { background: #18181b; color: var(--text); border-color: #33333a; }
+  table { border-collapse: collapse; width: 100%; }
+  th, td { padding: 0.875rem 1rem; border-bottom: 1px solid var(--border); text-align: left; font-size: 0.875rem; }
+  thead th { background: transparent; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.7rem; border-bottom: 1px solid var(--border); }
+  tbody tr:hover { background: rgba(255,255,255,0.02); }
+  .log-line { border-left: 2px solid var(--border); padding-left: 0.75rem; margin: 0; font-size: 0.8125rem; line-height: 1.5; }
+  .log-line:nth-child(odd) { background: rgba(255,255,255,0.02); }
+  .log-line:last-child { border-bottom: none; }
+  .fade-in { animation: fadeIn 0.4s ease-out; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: #222226; border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: #33333a; }
+  .badge {
+    display: inline-flex; align-items: center; padding: 0.1875rem 0.625rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; border: 1px solid;
+  }
+  .badge-auto { background: rgba(74,222,128,0.08); color: var(--success); border-color: rgba(74,222,128,0.15); }
+  .badge-manual { background: rgba(96,165,250,0.08); color: var(--info); border-color: rgba(96,165,250,0.15); }
+</style>
+</head>
+<body class="bg-vernal min-h-screen selection:bg-blue-500 selection:text-white">
+
+<div class="max-w-5xl mx-auto px-4 py-8">
+  <!-- Header -->
+  <div class="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div class="fade-in">
+      <div class="inline-flex items-center gap-2 mb-3">
+        <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-slate-600 to-slate-800 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-slate-900/30">
+          C
+        </div>
+        <h1 class="text-xl font-bold tracking-tight">ChronoGuard</h1>
+      </div>
+      <p class="text-muted-foreground text-sm">Local control and monitoring panel — sprite <span class="mono text-xs bg-white/5 px-1.5 py-0.5 rounded border border-white/10">chronoguard-dev</span> &bull; port <span class="mono text-xs bg-white/5 px-1.5 py-0.5 rounded border border-white/10">8090</span></p>
+    </div>
+    <div class="flex items-center gap-3 fade-in" style="animation-delay: 0.1s;">
+      <div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs font-semibold">
+        <span id="statusDot" class="status-dot status-running"></span>
+        <span id="statusText" class="text-sm">Running</span>
+      </div>
+      <button onclick="refresh()" class="btn-primary px-5 py-2.5 min-w-[120px]">
+        <svg class="w-4 h-4 mr-2 animate-[spin_1s_linear_infinite]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+        Refresh
+      </button>
+    </div>
+  </div>
+
+  <!-- Stat cards -->
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+    <div class="card p-5 fade-in" style="animation-delay: 0.05s;">
+      <div class="flex items-center justify-between mb-2">
+        <p class="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Last Action</p>
+        <span class="text-xs font-mono text-accent bg-white/5 px-2 py-0.5 rounded border border-white/10" id="summaryLastAction">—</span>
+      </div>
+      <p id="summaryLastActionTime" class="text-xs text-muted-foreground mono">—</p>
+    </div>
+    <div class="card p-5 fade-in" style="animation-delay: 0.1s;">
+      <p class="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Checkpoints</p>
+      <p id="summaryCheckpoints" class="text-2xl font-bold mono">5</p>
+    </div>
+    <div class="card p-5 fade-in" style="animation-delay: 0.15s;">
+      <p class="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Alerts</p>
+      <p id="summaryAlerts" class="text-2xl font-bold mono text-danger">0</p>
+    </div>
+    <div class="card p-5 fade-in" style="animation-delay: 0.2s;">
+      <p class="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Server Port</p>
+      <p class="text-2xl font-bold mono">8090</p>
+    </div>
+  </div>
+
+  <!-- Action buttons -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+    <div class="fade-in" style="animation-delay: 0.05s;">
+      <button onclick="doAction('checkpoint')" id="btnCheckpoint" class="w-full btn-success py-4 px-5 text-left">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-xl">+</span>
+            <span class="font-bold">Create Checkpoint</span>
+          </div>
+          <p class="text-xs text-muted-foreground mt-1">Save current sprite environment state</p>
+        </div>
+      </button>
+    </div>
+    <div class="fade-in" style="animation-delay: 0.1s;">
+      <button onclick="doAction('simulate_danger')" id="btnDanger" class="w-full btn-danger py-4 px-5 text-left">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-xl">⚡</span>
+            <span class="font-bold">Simulate Danger</span>
+            <span class="ml-auto text-xs font-bold bg-white/10 px-1.5 py-0.5 rounded border border-white/10">ALERT</span>
+          </div>
+          <p class="text-xs text-muted-foreground mt-1">Trigger simulated alert, write to log</p>
+        </div>
+      </button>
+    </div>
+    <div class="fade-in" style="animation-delay: 0.15s;">
+      <button onclick="doAction('rollback')" id="btnRollback" class="w-full btn-info py-4 px-5 text-left">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-xl">↩</span>
+            <span class="font-bold">Restore v1</span>
+          </div>
+          <p class="text-xs text-muted-foreground mt-1">Rollback sprite environment to checkpoint v1</p>
+        </div>
+      </button>
+    </div>
+  </div>
+
+  <!-- Filters row -->
+  <div class="card p-6 mb-8 fade-in" style="animation-delay: 0.05s;">
+    <div class="flex flex-wrap items-end gap-4">
+      <div class="flex-1 min-w-[200px]">
+        <label class="block text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">Checkpoint History</label>
+        <select id="filterCheckpoint" class="w-full px-4 py-2.5 rounded-xl border border-white/10 bg-white/5 text-sm text-foreground focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all">
+          <option value="all">All Checkpoints</option>
+        </select>
+      </div>
+      <div class="flex-1 min-w-[200px]">
+        <label class="block text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">Server Status</label>
+        <select id="filterStatus" class="w-full px-4 py-2.5 rounded-xl border border-white/10 bg-white/5 text-sm text-foreground focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all">
+          <option value="all">All Statuses</option>
+          <option value="running">Running</option>
+          <option value="alert">Alert</option>
+          <option value="restored">Restored</option>
+        </select>
+      </div>
+      <button onclick="clearLog()" class="btn-ghost px-4 py-2.5 rounded-xl">
+        Clear Log
+      </button>
+    </div>
+  </div>
+
+  <!-- Checkpoints table -->
+  <div class="card mb-8 fade-in" style="animation-delay: 0.1s;">
+    <div class="p-6 border-b border-white/10 flex justify-between items-center">
+      <div>
+        <h2 class="text-sm font-semibold text-foreground uppercase tracking-wider">Environment Checkpoints</h2>
+        <p id="checkpointCount" class="text-xs text-muted-foreground mono mt-0.5">5</p>
+        <button onclick="refresh()" class="text-xs font-medium text-blue-400 hover:text-blue-300 transition-colors">Refresh</button>
+      </div>
+      <div class="overflow-x-auto p-4">
+        <table>
+          <thead>
+            <tr>
+              <th class="w-16">ID</th>
+              <th>Created</th>
+              <th>Comment</th>
+              <th class="w-32">Type</th>
+            </tr>
+          </thead>
+          <tbody id="checkpointsBody">
+            <tr><td colspan="4" class="text-center text-muted-foreground py-10">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Agent log -->
+  <div class="card fade-in" style="animation-delay: 0.15s;">
+    <div class="p-6 border-b border-white/10 flex justify-between items-center">
+      <div>
+        <h2 class="text-sm font-semibold text-foreground uppercase tracking-wider">agent.log — Log Tail</h2>
+        <p class="text-xs text-muted-foreground">Last 100 lines, real-time</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <button onclick="refreshLog()" class="text-xs font-medium text-blue-400 hover:text-blue-300 transition-colors">Refresh Log</button>
+      </div>
+    </div>
+    <div class="p-0 overflow-hidden">
+      <div id="logContainer" class="p-5 mono text-xs max-h-[380px] overflow-y-auto bg-black/40 border-b border-white/5 last:border-0">
+        <div class="flex items-center justify-center h-24 text-muted-foreground">Loading log…</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="mt-10 pt-6 border-t border-white/10 text-[0.75rem] text-muted-foreground text-center">
+    ChronoGuard Agent • http://127.0.0.1:8090 (via <span class="mono">sprite proxy -s chronoguard-dev 8090:8090</span>)
+  </div>
+</div>
+
+<script>
+let polling = true;
+let pollTimer = null;
+
+async function api(path, opts = {}) {
+  const res = await fetch(path, {
+    headers: { 'Content-Type': 'application/json', ...opts.headers },
+    ...opts,
+  });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+}
+
+function setLoading(loading) {
+  for (const id of ['btnCheckpoint','btnDanger','btnRollback']) {
+    document.getElementById(id).disabled = loading;
+  }
+}
+
+async function refresh() {
+  setLoading(true);
+  try {
+    const data = await api('/api/state');
+    renderState(data.state);
+  } catch (e) {
+    console.error('refresh failed', e);
+    document.getElementById('statusText').textContent = 'Connection Error';
+    document.getElementById('statusDot').className = 'status-dot status-alert';
+  } finally {
+    setLoading(false);
+  }
+}
+
+async function refreshLog() {
+  try {
+    const data = await api('/api/log');
+    renderLog(data.lines || []);
+  } catch (e) {
+    console.error('log refresh failed', e);
+  }
+}
+
+function renderState(state) {
+  const cps = state.checkpoints || [];
+
+  // Summary
+  document.getElementById('summaryLastAction').textContent = state.last_action || '—';
+  document.getElementById('summaryLastActionTime').textContent = state.last_action_time || '—';
+  document.getElementById('summaryCheckpoints').textContent = cps.length;
+  document.getElementById('summaryAlerts').textContent = (state.alerts || []).length;
+  document.getElementById('checkpointCount').textContent = cps.length;
+
+  // Status dot
+  const status = state.status || 'running';
+  const dot = document.getElementById('statusDot');
+  const text = document.getElementById('statusText');
+  dot.className = 'status-dot status-' + (status === 'running' ? 'running' : status === 'alert' ? 'alert' : 'restored');
+  const labels = { running: 'Running', alert: 'ALERT', restored: 'Restored' };
+  text.textContent = labels[status] || status;
+  text.className = 'text-sm font-semibold ' + (status === 'running' ? 'text-green-400' : status === 'alert' ? 'text-red-400' : 'text-blue-400');
+
+  // Checkpoints table
+  const tbody = document.getElementById('checkpointsBody');
+  tbody.innerHTML = '';
+  if (cps.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="4" class="text-center text-muted-foreground py-10">No checkpoints found</td></tr>';
+  } else {
+    for (const cp of cps) {
+      const tr = document.createElement('tr');
+      tr.className = 'fade-in';
+      tr.innerHTML = `
+        <td class="font-mono font-semibold text-sm">${escapeHtml(cp.id || '—')}</td>
+        <td class="font-mono text-xs text-muted-foreground">${escapeHtml(cp.create_time || '—')}</td>
+        <td class="text-sm">${escapeHtml(cp.comment || '—')}</td>
+        <td class="font-mono text-xs">
+          <span class="badge ${cp.is_auto ? 'badge-auto' : 'badge-manual'}">${cp.is_auto ? 'auto' : 'manual'}</span>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    }
+  }
+
+  // Checkpoint filter select
+  const sel = document.getElementById('filterCheckpoint');
+  const cur = sel.value;
+  sel.innerHTML = '<option value="all">All Checkpoints</option>';
+  for (const cp of cps) {
+    const o = document.createElement('option');
+    o.value = cp.id || '';
+    o.textContent = (cp.id || '') + (cp.comment ? ' — ' + cp.comment : '');
+    sel.appendChild(o);
+  }
+  if ([...sel.options].some(o => o.value === cur)) sel.value = cur;
+
+  // Log tail (light)
+  renderLog(state.log_tail || []);
+}
+
+function renderLog(lines) {
+  const container = document.getElementById('logContainer');
+  container.innerHTML = '';
+  if (!lines || lines.length === 0) {
+    container.innerHTML = '<div class="text-center text-muted-foreground py-10">Log is empty</div>';
+    return;
+  }
+  for (const line of lines) {
+    const div = document.createElement('div');
+    div.className = 'log-line border-b border-white/5 last:border-0 py-2';
+    let html = escapeHtml(line);
+    if (/ALERT/i.test(html)) html = html.replace(/ALERT/gi, '<span class="text-red-400 font-bold">ALERT</span>');
+    if (/checkpoint/i.test(html)) html = html.replace(/checkpoint/gi, '<span class="text-green-400 font-bold">checkpoint</span>');
+    if (/rollback|restore/i.test(html)) html = html.replace(/rollback|restore/gi, '<span class="text-blue-400 font-bold">$&</span>');
+    div.innerHTML = html;
+    container.appendChild(div);
+  }
+  container.scrollTop = container.scrollHeight;
+}
+
+async function doAction(action) {
+  setLoading(true);
+  try {
+    await api('/api/action/' + action, { method: 'POST' });
+    await new Promise(r => setTimeout(r, 1000));
+    await refresh();
+  } catch (e) {
+    console.error('action failed', e);
+    alert('Action failed: ' + e.message);
+  } finally {
+    setLoading(false);
+  }
+}
+
+function clearLog() {
+  if (!confirm('Clear agent.log?')) return;
+  fetch('/api/log', { method: 'DELETE' }).then(() => refreshLog()).catch(() => {});
+}
+
+function escapeHtml(s) {
+  if (s == null) return '';
+  return String(s)
+    .replace(/&/g, '&')
+    .replace(/</g, '<')
+    .replace(/>/g, '>')
+    .replace(/"/g, '"')
+    .replace(/'/g, '&#039;');
+}
+
+refresh();
+refreshLog();
+pollTimer = setInterval(() => { if (polling) refresh(); }, 5000);
+
+</script>
+</body>
+</html>
