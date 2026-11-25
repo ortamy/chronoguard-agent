@@ -1,11 +1,11 @@
-# ChronoGuard вЂ” Hacksgiving 2026 submission pack
+# ChronoGuard РІР‚вЂќ Hacksgiving 2026 submission pack
 
 This folder contains everything needed to submit, except the two actions that require the owner's
 accounts: publishing the repository and recording the video.
 
 ## 1. Short description (for the form)
 
-> **ChronoGuard вЂ” your AI's last line of defense.**
+> **ChronoGuard РІР‚вЂќ your AI's last line of defense.**
 > An autonomous safety and recovery layer for AI agents on Fly.io Sprites. The agent has no shell:
 > every action goes through one guarded executor with a deterministic risk and policy engine
 > (ALLOW / DEFER / BLOCK), an append-only audit journal, and human approval for anything risky.
@@ -18,7 +18,7 @@ accounts: publishing the repository and recording the video.
 | Problem | ChronoGuard answer |
 |---|---|
 | Agents can run destructive commands with no second opinion | single guarded executor + deterministic policy engine |
-| вЂњHuman in the loopвЂќ is usually a checkbox | DEFER creates a real pending approval; the model cannot approve itself |
+| РІР‚СљHuman in the loopРІР‚Сњ is usually a checkbox | DEFER creates a real pending approval; the model cannot approve itself |
 | Recovery demos are fake | native `sprite-env checkpoints restore`, verified after reconnect (5/5 checks) |
 | Incidents disappear after a rollback | automatic journal export to `/tmp` + import on boot, proven across a real restore |
 | Connectors leak tokens into sandboxes | official gateway; credentials stay in the org, sprite sees only a connection id |
@@ -26,18 +26,18 @@ accounts: publishing the repository and recording the video.
 ## 3. Fly.io Sprites + Connector integration
 
 * Agent runs in sprite **chronoguard-dev** as the `chronoguard` service (`http_port 8090`).
-* Connector: **`custom_api` в†’ Fly.io Machines** (`FGKE6qpYITmb8rKxbqQyaw`), created through the
+* Connector: **`custom_api` РІвЂ вЂ™ Fly.io Machines** (`FGKE6qpYITmb8rKxbqQyaw`), created through the
   official connector flow, called only via `https://api.sprites.dev/v1/gateway/...`.
 * Access policy narrowed: `name_prefix=chronoguard-dev`, `allowed_endpoints=["/v1/apps*"]`
   (was `allow_all`). `sprite_count: 1`.
-* Verified: allowed path в†’ **200** (`total_apps: 1`); non-allowlisted path в†’ **403 endpoint is not in
+* Verified: allowed path РІвЂ вЂ™ **200** (`total_apps: 1`); non-allowlisted path РІвЂ вЂ™ **403 endpoint is not in
   allowed list**.
 
 ## 4. Security guarantees
 
 | Guarantee | Mechanism | Status |
 |---|---|---|
-| Deterministic decisions, no LLM override | risk engine (0вЂ“100) + policy engine; restricted ops checked first | VERIFIED (tests + live) |
+| Deterministic decisions, no LLM override | risk engine (0РІР‚вЂњ100) + policy engine; restricted ops checked first | VERIFIED (tests + live) |
 | No shell / no unrestricted exec | one executor, `shell=False`, allowlist, `cwd=workspace` | VERIFIED (`shell=True`: 0) |
 | Protected paths are absolute blocks | policy `protected_paths`; never approvable | VERIFIED (tests + live BLOCK) |
 | Approval cannot bypass a later block | policy re-validated at approval time | VERIFIED (test) |
@@ -46,7 +46,7 @@ accounts: publishing the repository and recording the video.
 | Connector least privilege | org policy name prefix + endpoint allowlist | VERIFIED (200 / 403) |
 | No provider credentials in the sprite | gateway identity only; journal/bundle scanned | VERIFIED (grep + bundle check) |
 | Provider failure cannot bypass | error path returns without executing any tool | VERIFIED (tests) |
-| Bounded loop | в‰¤12 steps, 60 s/call, 240 s total, output caps | VERIFIED (tests) |
+| Bounded loop | РІвЂ°В¤12 steps, 60 s/call, 240 s total, output caps | VERIFIED (tests) |
 | Durable audit across restore | pre-restore export to `/tmp` + boot import (`mode=automatic`) | VERIFIED (real restore) |
 | OS-level sandbox | not implemented | **LIMITATION** |
 | Live AI reasoning | Gemini 3.6 Flash via connector; real tool-call cycle verified | **VERIFIED** |
@@ -79,8 +79,8 @@ narration and the UI path.
 - [x] Runs on a Fly.io Sprite (`chronoguard-dev`, service `chronoguard`, `:8090`)
 - [x] Uses at least one official Sprites Connector (Fly Machines, narrowed policy, live 200)
 - [x] Built during Hacksgiving week (all checkpoints created 2026-11-25)
-- [ ] Public repository link вЂ” **owner action** (local repo ready)
-- [ ] Demo video вЂ” **owner action** (script in `DEMO.md`)
+- [ ] Public repository link РІР‚вЂќ **owner action** (local repo ready)
+- [ ] Demo video РІР‚вЂќ **owner action** (script in `DEMO.md`)
 - [ ] Social post tagging `@flydotio`
 - [ ] Submit before **2026-11-29 23:59 PST** = **2026-11-30 12:00 Asia/Tbilisi**
 
@@ -88,7 +88,7 @@ narration and the UI path.
 
 > Built ChronoGuard for @flydotio Hacksgiving: an AI agent on a Sprite that can't destroy itself.
 > Every tool call hits a deterministic guard (ALLOW/DEFER/BLOCK), risky ops need a human, and
-> recovery is a native Sprite checkpoint restore вЂ” verified, with the incident history surviving the
+> recovery is a native Sprite checkpoint restore РІР‚вЂќ verified, with the incident history surviving the
 > rollback. Connectors keep tokens out of the sandbox. #Hacksgiving
 
-(в‰¤ 280 chars; adjust if the platform counts differently.)
+(РІвЂ°В¤ 280 chars; adjust if the platform counts differently.)
