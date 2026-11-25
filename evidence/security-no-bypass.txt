@@ -1,0 +1,2 @@
+line 295: proc = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
+line 624: proc = subprocess.run(
