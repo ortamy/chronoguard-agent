@@ -1,0 +1,9 @@
+﻿{
+    "ok":  true,
+    "configured":  false,
+    "connection_id":  null,
+    "display_name":  null,
+    "repo":  "",
+    "setup_url":  "https://sprites.dev/account/artem-909/connect/github",
+    "note":  "GitHub connector is not configured in this organization."
+}
