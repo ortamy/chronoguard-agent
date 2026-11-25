@@ -1,0 +1,18 @@
+before:
+d51b29c2696d2dade6d9d667d4fc36dd596cc195d8780b2547e80e5142a78f10  /home/sprite/workspace/disposable/a.txt
+f0e568e0b754cef01d861c7552e87cbc2577bc2cd1868efd4956f836097bf7bb  /home/sprite/workspace/disposable/b.txt
+cd9187ce361178f42bce7a56fc754a8376edabe0fa568debd0f46715f5ffbed6  /home/sprite/workspace/disposable/c.txt
+checkpoint=v27
+incident=evt_c4650e8556a9 decision=BLOCK
+damaged=a.txt c.txt rogue.txt
+rollback=True
+api_back_after=6s:True
+after:
+d51b29c2696d2dade6d9d667d4fc36dd596cc195d8780b2547e80e5142a78f10  /home/sprite/workspace/disposable/a.txt
+f0e568e0b754cef01d861c7552e87cbc2577bc2cd1868efd4956f836097bf7bb  /home/sprite/workspace/disposable/b.txt
+cd9187ce361178f42bce7a56fc754a8376edabe0fa568debd0f46715f5ffbed6  /home/sprite/workspace/disposable/c.txt
+listing_after=a.txt b.txt c.txt
+verified=True
+incident_survived=True
+hashes_equal=True
+rogue_removed=True
