@@ -1,0 +1,29 @@
+﻿{
+    "ok":  true,
+    "status":  200,
+    "provider":  "custom_api",
+    "path":  "/v1/apps?org_slug=artem-909",
+    "data":  {
+                 "total_apps":  1,
+                 "apps":  [
+                              {
+                                  "id":  "jlyv9rxw7vjy98xr",
+                                  "name":  "mono--oa19w",
+                                  "internal_numeric_id":  33545065,
+                                  "network_cidr":  "fdaa:104:f46a::/48",
+                                  "network":  "default",
+                                  "status":  "deployed",
+                                  "machine_count":  1,
+                                  "volume_count":  0,
+                                  "organization":  {
+                                                       "name":  "Artem",
+                                                       "slug":  "artem-909",
+                                                       "internal_numeric_id":  2034725
+                                                   },
+                                  "cname_target":  "58x6qm3.mono--oa19w.fly.dev",
+                                  "app_role":  ""
+                              }
+                          ]
+             },
+    "error":  null
+}
