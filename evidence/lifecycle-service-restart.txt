@@ -1,0 +1,3 @@
+service restart: health=True uptime=27s checkpoints=24
+probe evt_bca02e56f283 persisted: True
+journal size: 53
