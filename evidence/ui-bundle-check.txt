@@ -1,0 +1,6 @@
+bundle=assets/index-GCv-iSJn.js size=469656
+strict_secret_markers=NONE
+raw 'sk-' occurrences=1 (expected: substring of 'risk-')
+honest_text=True
+connector_panel=True
+routes=8/8
