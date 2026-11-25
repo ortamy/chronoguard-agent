@@ -1,0 +1,7 @@
+﻿ChronoGuard live GitHub verification
+====================================
+repo: ortamy/chronoguard-agent
+issue #1 (open): https://github.com/ortamy/chronoguard-agent/issues/1
+issue #2: closed as duplicate (state_reason=duplicate)
+dedupe: repeated POST /api/github/report for evt_87b958ff7d2b -> deduped=true, url=#1
+marker: chronoguard-incident:<event_id> in body + event id in title
