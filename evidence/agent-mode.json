@@ -1,0 +1,10 @@
+﻿{
+    "ok":  true,
+    "mode":  {
+                 "kind":  "none",
+                 "provider":  "",
+                 "available":  false,
+                 "note":  "No LLM connector configured. Add an Anthropic connector (BYOK) in the Sprites dashboard.",
+                 "setup_url":  "https://sprites.dev/account/artem-909/connect/anthropic"
+             }
+}
