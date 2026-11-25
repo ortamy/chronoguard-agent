@@ -1,0 +1,12 @@
+/ -> 200
+/api/health -> 200
+/api/state -> 200
+/api/events?limit=5 -> 200
+/api/incidents -> 200
+/api/snapshots -> 200
+/api/policies -> 200
+/api/connectors -> 200
+/api/agent/mode -> 200
+/api/github/status -> 200
+/api/audit/export -> 200
+/api/log -> 200
