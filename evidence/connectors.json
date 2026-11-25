@@ -1,0 +1,560 @@
+﻿{
+    "ok":  true,
+    "fetched_at":  "2026-11-25T11:00:52.450321+00:00",
+    "status":  200,
+    "error":  null,
+    "connections":  [
+                        {
+                            "id":  "FGKE6qpYITmb8rKxbqQyaw",
+                            "provider":  "custom_api",
+                            "display_name":  "Fly.io Machines",
+                            "description":  "Fly.io Machines API scoped to artem-909.",
+                            "connection_type":  "oauth",
+                            "gateway_base_url":  "https://api.sprites.dev/v1/gateway/custom_api/FGKE6qpYITmb8rKxbqQyaw",
+                            "manage_url":  "https://sprites.dev/account/artem-909/connectors/FGKE6qpYITmb8rKxbqQyaw",
+                            "usage_snippet":  "# Responses stream unchanged, including compressed content. Use --compressed\n# to let curl negotiate and decode compression. The gateway still filters\n# credentials, cookies, gateway identity and hop-by-hop headers, and manages\n# HTTP framing. Requests are limited to 8 MB; redirects are not followed by\n# the gateway. Custom API responses are not inspected for inference usage.\n# Query-parameter auth protects echoed keys instead of passing bytes through:\n# only identity/gzip responses are supported, and HTTP 206 is rejected.\n\n# Make a GET request through the gateway\ncurl \"https://api.sprites.dev/v1/gateway/custom_api/FGKE6qpYITmb8rKxbqQyaw/your/endpoint\"\n\n# POST with JSON body\ncurl -X POST \"https://api.sprites.dev/v1/gateway/custom_api/FGKE6qpYITmb8rKxbqQyaw/your/endpoint\" \\\n  -H \"Content-Type: application/json\" \\\n  -d \u0027{\"key\": \"value\"}\u0027",
+                            "access_policy":  {
+                                                  "allow_all":  true
+                                              }
+                        }
+                    ],
+    "available":  [
+                      {
+                          "provider":  "slack",
+                          "display_name":  "Slack (User)",
+                          "description":  "Allow Sprites to act on your behalf",
+                          "default_scopes":  [
+                                                 "chat:write",
+                                                 "channels:read",
+                                                 "channels:history",
+                                                 "users:read",
+                                                 "team:read",
+                                                 "search:read"
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/slack"
+                      },
+                      {
+                          "provider":  "slack_bot",
+                          "display_name":  "Slack (Bot)",
+                          "description":  "Allow Sprites to be Slack Bots",
+                          "default_scopes":  [
+                                                 "chat:write",
+                                                 "channels:read",
+                                                 "channels:history",
+                                                 "users:read",
+                                                 "team:read"
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/slack_bot"
+                      },
+                      {
+                          "provider":  "github",
+                          "display_name":  "GitHub",
+                          "description":  "Repos, issues, pull requests",
+                          "default_scopes":  [
+                                                 "repo",
+                                                 "read:org"
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/github"
+                      },
+                      {
+                          "provider":  "discourse",
+                          "display_name":  "Discourse",
+                          "description":  "Read and post to a Discourse forum",
+                          "default_scopes":  [
+                                                 "read",
+                                                 "write"
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/discourse"
+                      },
+                      {
+                          "provider":  "neon",
+                          "display_name":  "Neon",
+                          "description":  "Serverless Postgres projects and branches",
+                          "default_scopes":  [
+                                                 "urn:neoncloud:projects:read",
+                                                 "urn:neoncloud:projects:create",
+                                                 "urn:neoncloud:projects:update",
+                                                 "urn:neoncloud:orgs:read",
+                                                 "offline",
+                                                 "offline_access"
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/neon"
+                      },
+                      {
+                          "provider":  "link",
+                          "display_name":  "Link",
+                          "description":  "Let an agent ask your Link wallet for a one-time virtual card. You approve each purchase in the Link app. Your Sprite pays with the virtual card, so your real card number isn\u0027t shared.",
+                          "default_scopes":  [
+                                                 "payment_methods.agentic",
+                                                 "userinfo:read"
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/link"
+                      },
+                      {
+                          "provider":  "box",
+                          "display_name":  "Box",
+                          "description":  "Read, download and upload files in your Box account from trusted Sprites.",
+                          "default_scopes":  [
+                                                 "root_readwrite"
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/box"
+                      },
+                      {
+                          "provider":  "apify",
+                          "display_name":  "Apify",
+                          "description":  "Run Apify Actors and tasks and retrieve their datasets",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/apify"
+                      },
+                      {
+                          "provider":  "browserbase",
+                          "display_name":  "Browserbase",
+                          "description":  "Create cloud browser sessions, search the web, and fetch pages",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/browserbase"
+                      },
+                      {
+                          "provider":  "pinecone",
+                          "display_name":  "Pinecone",
+                          "description":  "Search and manage vectors, generate embeddings, and rerank results",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/pinecone"
+                      },
+                      {
+                          "provider":  "temporal",
+                          "display_name":  "Temporal Cloud",
+                          "description":  "Start, list, describe, signal, and query Temporal Cloud workflows",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/temporal"
+                      },
+                      {
+                          "provider":  "agentmail",
+                          "display_name":  "AgentMail",
+                          "description":  "Email inboxes, messages and drafts for your Sprites",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/agentmail"
+                      },
+                      {
+                          "provider":  "blotato",
+                          "display_name":  "Blotato",
+                          "description":  "Publish posts to your connected social accounts",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/blotato"
+                      },
+                      {
+                          "provider":  "composio",
+                          "display_name":  "Composio Tools",
+                          "description":  "Discover and execute tools for existing Composio accounts",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/composio"
+                      },
+                      {
+                          "provider":  "era",
+                          "display_name":  "Era",
+                          "description":  "Read linked bank accounts and transactions",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/era"
+                      },
+                      {
+                          "provider":  "kagi",
+                          "display_name":  "Kagi",
+                          "description":  "Web search and page contents for agents",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/kagi"
+                      },
+                      {
+                          "provider":  "keenable",
+                          "display_name":  "Keenable",
+                          "description":  "Search the web and retrieve page contents",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/keenable"
+                      },
+                      {
+                          "provider":  "lemonslice",
+                          "display_name":  "LemonSlice",
+                          "description":  "Monitor existing avatar sessions and their usage",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/lemonslice"
+                      },
+                      {
+                          "provider":  "mnemom",
+                          "display_name":  "Mnemom",
+                          "description":  "Inspect agent trust, alignment, and checkpoints",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/mnemom"
+                      },
+                      {
+                          "provider":  "supabase",
+                          "display_name":  "Supabase Database",
+                          "description":  "Hosted database tables, views and functions over REST",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/supabase"
+                      },
+                      {
+                          "provider":  "gigapipe",
+                          "display_name":  "Gigapipe",
+                          "description":  "Query and ingest logs, metrics, traces and profiles (API setup)",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/gigapipe"
+                      },
+                      {
+                          "provider":  "usable",
+                          "display_name":  "Usable",
+                          "description":  "Team knowledge and memory through Usable MCP",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/usable"
+                      },
+                      {
+                          "provider":  "depot",
+                          "display_name":  "Depot build insights",
+                          "description":  "Read-only container build and project metadata",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/depot"
+                      },
+                      {
+                          "provider":  "digitalocean",
+                          "display_name":  "DigitalOcean Inference",
+                          "description":  "Inference with intelligent model routing",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/digitalocean"
+                      },
+                      {
+                          "provider":  "upstash",
+                          "display_name":  "Upstash Redis",
+                          "description":  "Redis data commands over HTTP",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/upstash"
+                      },
+                      {
+                          "provider":  "exa",
+                          "display_name":  "Exa",
+                          "description":  "Web search and page contents for agents",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/exa"
+                      },
+                      {
+                          "provider":  "firecrawl",
+                          "display_name":  "Firecrawl",
+                          "description":  "Scrape, search, and map websites",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/firecrawl"
+                      },
+                      {
+                          "provider":  "linkup",
+                          "display_name":  "Linkup",
+                          "description":  "Search the web and fetch page contents",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/linkup"
+                      },
+                      {
+                          "provider":  "steel",
+                          "display_name":  "Steel Browser Tools",
+                          "description":  "Stateless browser scraping, screenshots, and PDFs",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/steel"
+                      },
+                      {
+                          "provider":  "parasail",
+                          "display_name":  "Parasail",
+                          "description":  "OpenAI-compatible inference via Parasail",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/parasail"
+                      },
+                      {
+                          "provider":  "fireworks",
+                          "display_name":  "Fireworks",
+                          "description":  "OpenAI-compatible inference via Fireworks",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/fireworks"
+                      },
+                      {
+                          "provider":  "huggingface",
+                          "display_name":  "Hugging Face",
+                          "description":  "Open-model inference and optional Hub repository access",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/huggingface"
+                      },
+                      {
+                          "provider":  "deepgram",
+                          "display_name":  "Deepgram",
+                          "description":  "Prerecorded speech recognition and text-to-speech",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/deepgram"
+                      },
+                      {
+                          "provider":  "elevenlabs",
+                          "display_name":  "ElevenLabs",
+                          "description":  "Voice agents, conversations and knowledge base",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/elevenlabs"
+                      },
+                      {
+                          "provider":  "vocalbridge",
+                          "display_name":  "Vocal Bridge",
+                          "description":  "Short-lived credentials for live voice agents",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/vocalbridge"
+                      },
+                      {
+                          "provider":  "ollama",
+                          "display_name":  "Ollama",
+                          "description":  "Cloud-hosted open models via Ollama",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/ollama"
+                      },
+                      {
+                          "provider":  "meta",
+                          "display_name":  "Meta",
+                          "description":  "Muse Spark models via the Meta Model API",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/meta"
+                      },
+                      {
+                          "provider":  "openai",
+                          "display_name":  "OpenAI",
+                          "description":  "GPT models via the OpenAI API",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/openai"
+                      },
+                      {
+                          "provider":  "typesafe",
+                          "display_name":  "TypeSafeAI",
+                          "description":  "Typed decisions from Jev, TypeSafeAI\u0027s System One model",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/typesafe"
+                      },
+                      {
+                          "provider":  "anthropic",
+                          "display_name":  "Anthropic",
+                          "description":  "Claude models via the Anthropic API",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/anthropic"
+                      },
+                      {
+                          "provider":  "gemini",
+                          "display_name":  "Google Gemini",
+                          "description":  "Gemini models via the Google Gemini Developer API",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/gemini"
+                      },
+                      {
+                          "provider":  "resend",
+                          "display_name":  "Resend",
+                          "description":  "Send transactional email",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/resend"
+                      },
+                      {
+                          "provider":  "nebius_jobs",
+                          "display_name":  "Nebius Serverless AI Jobs",
+                          "description":  "Run GPU jobs on Nebius from a Sprite",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/nebius_jobs"
+                      },
+                      {
+                          "provider":  "s3_object_store",
+                          "display_name":  "S3-compatible Object Store",
+                          "description":  "Connect an S3-compatible bucket",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/s3_object_store"
+                      },
+                      {
+                          "provider":  "senselab",
+                          "display_name":  "SenseLab",
+                          "description":  "Persistent agent memory, briefings, and outcomes",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/senselab"
+                      },
+                      {
+                          "provider":  "tigris",
+                          "display_name":  "Tigris",
+                          "description":  "Access Tigris buckets and objects without exposing your keys",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/tigris"
+                      },
+                      {
+                          "provider":  "custom_api",
+                          "display_name":  "Custom API",
+                          "description":  "Connect any API with a token",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/custom_api"
+                      },
+                      {
+                          "provider":  "assemblyai",
+                          "display_name":  "AssemblyAI",
+                          "description":  "Transcribe recorded audio with AssemblyAI-STT-3.7 and read transcripts, sentences, subtitles and word searches.",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/assemblyai"
+                      },
+                      {
+                          "provider":  "granola",
+                          "display_name":  "Granola",
+                          "description":  "Read and search meeting notes, summaries and transcripts from Granola.",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/granola"
+                      },
+                      {
+                          "provider":  "linear",
+                          "display_name":  "Linear",
+                          "description":  "Query and update Linear issues, projects, cycles and teams over GraphQL",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/linear"
+                      },
+                      {
+                          "provider":  "notion",
+                          "display_name":  "Notion",
+                          "description":  "Read and write Notion pages, databases, data sources, blocks and comments",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/notion"
+                      },
+                      {
+                          "provider":  "nscale",
+                          "display_name":  "Nscale",
+                          "description":  "Serverless chat, text completions and embeddings with Nscale.",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/nscale"
+                      },
+                      {
+                          "provider":  "pushover",
+                          "display_name":  "Pushover",
+                          "description":  "Send push notifications to your phone and desktop",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/pushover"
+                      },
+                      {
+                          "provider":  "sentry",
+                          "display_name":  "Sentry",
+                          "description":  "Investigate Sentry issues, events, releases, monitors and replays",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/sentry"
+                      },
+                      {
+                          "provider":  "stripe",
+                          "display_name":  "Stripe",
+                          "description":  "Read Stripe payments and billing data and manage your product catalog",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/stripe"
+                      },
+                      {
+                          "provider":  "tavily",
+                          "display_name":  "Tavily",
+                          "description":  "Web search, page extraction, site crawling and mapping, and deep research for agents",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/tavily"
+                      },
+                      {
+                          "provider":  "zerogpu",
+                          "display_name":  "ZeroGPU",
+                          "description":  "Run AI inference with ZeroGPU\u0027s open-weight models and specialized small models.",
+                          "default_scopes":  [
+
+                                             ],
+                          "setup_url":  "https://sprites.dev/account/artem-909/connect/zerogpu"
+                      }
+                  ],
+    "llm":  {
+                "kind":  "none",
+                "provider":  "",
+                "available":  false,
+                "note":  "No LLM connector configured. Add an Anthropic connector (BYOK) in the Sprites dashboard.",
+                "setup_url":  "https://sprites.dev/account/artem-909/connect/anthropic"
+            }
+}
