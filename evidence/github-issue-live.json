@@ -1,0 +1,12 @@
+﻿{
+    "second":  {
+                   "ok":  true,
+                   "url":  "https://github.com/ortamy/chronoguard-agent/issues/2",
+                   "deduped":  false
+               },
+    "first":  {
+                  "ok":  true,
+                  "url":  "https://github.com/ortamy/chronoguard-agent/issues/1",
+                  "deduped":  false
+              }
+}
