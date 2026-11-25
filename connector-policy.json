@@ -1,0 +1,1 @@
+{"access_policy":{"name_prefix":"chronoguard-dev","allowed_endpoints":["/v1/apps*"]}}
