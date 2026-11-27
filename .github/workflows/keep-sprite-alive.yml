@@ -1,0 +1,27 @@
+name: Keep Fly Sprite Alive (14 days)
+
+on:
+  schedule:
+    # Пинг каждые 15 минут
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+jobs:
+  ping-sprite:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check 14-day TTL and wake sprite
+        env:
+          SPRITE_URL: ${{ secrets.SPRITE_URL }} # например: https://chronoguard-dev.sprites.dev/health
+        run: |
+          # Дата окончания: 11 декабря 2026, 14:00 UTC (ровно 14 дней с 27.11.2026)
+          EXPIRY_TS=$(date -d "2026-12-11T14:00:00Z" +%s)
+          NOW_TS=$(date -u +%s)
+
+          if [ "$NOW_TS" -ge "$EXPIRY_TS" ]; then
+            echo "14-day window expired. Skipping ping so sprite can sleep."
+            exit 0
+          fi
+
+          echo "Pinging $SPRITE_URL..."
+          curl -fsS --max-time 30 "$SPRITE_URL" || echo "Wake-up request sent"
